@@ -32,4 +32,4 @@ class Store(Resource):
 
 class StoreList(Resource):
     def get(self):
-        return {'item': [store.json() for store in StoreModel.query.all()]}
+        return {'item': [x.json() for x in StoreModel.find_all()]}

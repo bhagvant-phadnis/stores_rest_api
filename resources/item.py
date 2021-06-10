@@ -74,10 +74,11 @@ class Item(Resource):
         """
         item = ItemModel.find_by_name(name)
 
-        if item is None:
-            item = ItemModel(name, **data)             #like, item = ItemModel(name, data['price'], data['store_id'])
-        else:
+        if item:
             item.price = data['price']
+        else:
+            item = ItemModel(name, **data)  #like, item = ItemModel(name, data['price'], data['store_id'])
+
 
         item.save_to_db()
 
@@ -86,4 +87,4 @@ class Item(Resource):
 
 class ItemList(Resource):
     def get(self):
-        return {'item': [x.json() for x in ItemModel.query.all()]}
+        return {'items': [x.json() for x in ItemModel.find_all()]}

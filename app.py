@@ -14,6 +14,7 @@ from resources.store import Store, StoreList
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite:///data.db')     # TO know sqlalchemy, where to find db,    currenlty it is root directory, get() function uses dburl or sqlite
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['PROPOGATE_EXCEPTIONS'] = True
 app.secret_key='Mahesh'
 api = Api(app)
 

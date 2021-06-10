@@ -12,13 +12,22 @@ class StoreModel(db.Model):
         self.name = name
 
     def json(self):
-        return {'name': self.name, 'items': [item.json() for item in self.items]}
+        return {
+        'id': self.id,
+        'name': self.name,
+        'items': [item.json() for item in self.items.all()]
+        }
 
     @classmethod
     def find_by_name(cls, name):
         # To fetch the details
         return cls.query.filter_by(name=name).first()           # SELECT * from items where name=name  LIMIT 1
 #        return cls.query.filter_by(name=name, id=1)             # SELECT * from items where name=name and id=1
+
+    @classmethod
+    def find_all(cls):
+        return cls.query.all()
+
     def save_to_db(self):
         # To insert the details using SQLAlchemy
         db.session.add(self)                                       # add() this method perform insert as well as update operation.
